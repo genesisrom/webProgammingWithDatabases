@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            background-image: url(background.webp);
+            background-repeat: repeat;
+            background-size: 250px;
+        }
+
+        body {
+            padding-top: 50px;
+            padding-bottom: 100px;
+            padding-right: 50px;
+            padding-left: 50px;
+            text-align: center;
+            background-color: white;
+            margin-bottom: 25px;
+            margin-top: 50px;
+            margin-right: auto;
+            margin-left: auto;
+            width: 75%;
+        }
+
+        h1, #countdown, #staticDate {
+            color: deeppink;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #countdown {
+            font-size: 30px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        p {
+            font-size: larger;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+    <title>Hello Kitty Parade for Make A Wish America!</title>
+</head>
+<body>
+    <h1>Hello Kitty Parade for Make A Wish America!</h1>
+
+    <p>Thank you for showing interest in volunteering for this one of a kind event! As Hello Kitty and Friends 
+        have grown in popularity, they have deciced to collabrate withe Make A Wish America! Saniro wants to unite forces
+        and start creating life-changing wishes for children with critical illnesses. You too can be apart of this important mission by 
+        volunteering! Show your support by volunterring below! 
+    </p>
+
+    <p>We will be holding the Hello Kitty Parade for Make A Wish America on: 
+    </p>
+
+    <h2 id="staticDate">September 9th, 2024 at 1:00pm</h2>
+
+    <p>We need your help to make the event a success! Please click on the link below to volunteer for the Hello Kitty Parade 
+        for Make A Wish America! - you'll be glad that you did! </p>
+
+    <h2 id="countdownHeader">Countdown to the Big Day!!</h2>
+
+    <!-- Displays the countdown timer with javascript -->
+    <h2 id="countdown"></h2>
+    
+    <!-- Links to register.php page with the form to register for the event-->
+    <a href="register.php" id="registerLink">Click here to register to volunteer!</a>
+
+    <script>
+        /* 
+            Declarations of the variable needed for the countdowntimer (countdown)
+            - countDownDate creates the date of the event by using the Date and the getTime() function
+        */
+        let countDownDate = new Date("Sept 9, 2024 13:00:00").getTime();
+
+        //  Creates a function for the countdown timer
+        function countdownTime() {
+            /*
+                now: calls the Date function to get the current date and time 
+                distance: calculates the the amount of time left until the event date using countDownDate
+            */
+            let now = new Date().getTime();
+            let distance = countDownDate - now;
+
+            /*
+                these set of variables use the floor function to calculate the amount of days, hours, minutes, and seconds until the event date
+                - this was used from a resourced provided in the documentation
+            */
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+            // Display the results of the calculations above in the element with id="countdown"
+            document.getElementById("countdown").innerHTML = days + " Days " + hours + " Hours "
+                                                        + minutes + " Minutes " + seconds + " Seconds ";
+
+            // if statement that will change what is displayed once the event date comes
+            if (seconds < 0) {
+                // changes the countdown timer to display that the event has started
+                document.getElementById("countdown").innerHTML = "The Big Day has arrived!!";
+
+                // removes this element with id="countdownHeader"
+                let countdownHeader = document.getElementById("countdownHeader");
+                countdownHeader.remove();
+
+                // removes the link to the register.php page 
+                let registerLink = document.getElementById("registerLink");
+                registerLink.remove();
+            }
+        }
+
+        // Updates the timer once right away, and begins the timer a second later by setting the interval 
+        countdownTime();
+        let x = setInterval(countdownTime, 1000);
+    </script>
+</body>
+</html>
